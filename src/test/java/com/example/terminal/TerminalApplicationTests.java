@@ -1,4 +1,4 @@
-package com.example.Terminal;
+package com.example.terminal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
