@@ -2,6 +2,8 @@ package com.example.terminal.controller;
 
 import com.example.terminal.dto.BalanceDTO;
 import com.example.terminal.entity.Balance;
+import com.example.terminal.response.ResponseMessage;
+import com.example.terminal.response.ResponseResult;
 import com.example.terminal.service.BalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +14,9 @@ public class BalanceController {
     private final BalanceService balanceService;
 
     @Autowired
-    public BalanceController(BalanceService bankAccountService) {
-        this.balanceService = bankAccountService;
+    public BalanceController(BalanceService balanceService){
+      this.balanceService = balanceService;
+
     }
 
     //    @GetMapping("/{userId}/balance")
@@ -23,9 +26,11 @@ public class BalanceController {
 //  }
     @GetMapping("/get")
 
-    public BalanceDTO getBalance( @RequestParam Long userId)  {
-       Long balance = balanceService.getBalanceByUserId(userId);
-        return getBalance(balance);
+    public Balance getBalance(@RequestParam Long userId)  {
+        return balanceService.getBalance(userId);
     }
-
+    @PutMapping("/put")
+    public ResponseMessage putMoney(@RequestParam Long userId,@RequestParam Long summa){
+        return balanceService.putMoney(userId,summa);
+    }
 }
