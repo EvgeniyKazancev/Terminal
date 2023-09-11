@@ -46,4 +46,15 @@ public class BalanceService  {
          ResponseMessage rm = new ResponseMessage("",ResponseResult.SUCCESSFUL_OPERATION.getResult());
          return rm;
     }
+    @Transactional
+    public ResponseMessage takeMoney(Long userId,Long summa){
+        Balance bal = getBalance(userId);
+        if(bal.getBalance() <  summa){
+            ResponseMessage rm = new ResponseMessage("Недостаточно средств",ResponseResult.ERROR_OPERATION.getResult());
+            return rm;
+        }else
+            bal.setBalance(bal.getBalance() - summa);
+            return new ResponseMessage("",ResponseResult.SUCCESSFUL_OPERATION.getResult());
+
+    }
 }

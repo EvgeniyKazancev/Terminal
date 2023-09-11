@@ -33,4 +33,8 @@ public class BalanceController {
     public ResponseMessage putMoney(@RequestParam Long userId,@RequestParam Long summa){
         return balanceService.putMoney(userId,summa);
     }
+    @PutMapping("/take")
+    public ResponseMessage takeMoney(@RequestParam Long userId, @RequestParam Long summa){
+        return balanceService.takeMoney(userId,summa);
+    }
 }
