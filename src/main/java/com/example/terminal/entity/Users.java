@@ -7,18 +7,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Balance")
-public class Balance {
-
+@Table(name = "Users")
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "balance")
-    private Long balance;
+    @Column(name = "firstName")
+    private String firstName;
 
-    @OneToOne(optional = false,orphanRemoval = true)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    @Column(name = "lastName")
+    private String lastName;
+
+    @OneToOne(mappedBy = "user",orphanRemoval = true)
+    private Balance balance;
+
 }

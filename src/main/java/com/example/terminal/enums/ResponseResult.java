@@ -1,4 +1,4 @@
-package com.example.terminal.response;
+package com.example.terminal.enums;
 
 import com.example.terminal.dto.BalanceDTO;
 import lombok.Getter;
