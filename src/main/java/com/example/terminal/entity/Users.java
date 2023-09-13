@@ -20,7 +20,7 @@ public class Users {
     @Column(name = "lastname")
     private String lastName;
 
-    @OneToOne(mappedBy = "user",orphanRemoval = true)
+    @OneToOne(mappedBy = "user")
     private Balance balance;
 
 }
