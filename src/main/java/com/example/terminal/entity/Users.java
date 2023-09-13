@@ -14,10 +14,10 @@ public class Users {
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
     @OneToOne(mappedBy = "user",orphanRemoval = true)

@@ -19,7 +19,6 @@ public class BalanceController {
 
     }
     @GetMapping("/get")
-
     public Balance getBalance(@RequestParam Long userId)  {
         return balanceService.getBalance(userId);
     }

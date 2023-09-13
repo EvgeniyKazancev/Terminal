@@ -18,7 +18,7 @@ public class Balance {
     @Column(name = "balance")
     private Long balance;
 
-    @OneToOne(optional = false,orphanRemoval = true)
+    @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 }

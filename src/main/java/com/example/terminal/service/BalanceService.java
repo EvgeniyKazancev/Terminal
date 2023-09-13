@@ -36,7 +36,7 @@ public class BalanceService {
         Balance bal = getBalance(userId);
         bal.setBalance(bal.getBalance() + summa);
         operationService.addOperation(PUT_MONEY, summa, userId);
-        ResponseMessage rm = new ResponseMessage("", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         return rm;
     }
 
@@ -44,7 +44,7 @@ public class BalanceService {
     public ResponseMessage takeMoney(Long userId, Long summa) {
         Balance bal = getBalance(userId);
         if (bal.getBalance() < summa) {
-            ResponseMessage rm = new ResponseMessage("Недостаточно средств", ResponseResult.ERROR_OPERATION.getResult());
+            ResponseMessage rm = new ResponseMessage("Недостаточно средств.", ResponseResult.ERROR_OPERATION.getResult());
             return rm;
         } else
             bal.setBalance(bal.getBalance() - summa);
