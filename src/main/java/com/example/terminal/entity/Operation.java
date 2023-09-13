@@ -17,7 +17,7 @@ public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
-    private Long Id;
+    private Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id",nullable = false)

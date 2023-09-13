@@ -2,6 +2,7 @@ package com.example.terminal.controller;
 
 import com.example.terminal.entity.Operation;
 import com.example.terminal.service.OperationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping("/operation")
 public class OperationController {
     private final OperationService operationService;
-
+    @Autowired
     public OperationController(OperationService operationService) {
         this.operationService = operationService;
     }
