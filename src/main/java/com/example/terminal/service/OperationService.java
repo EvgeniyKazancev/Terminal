@@ -20,11 +20,11 @@ public class OperationService {
         List<Operation> operationList = operationRepository.findOperationByDateBetween(userId,startDate,finishDate);
         return  operationList;
     }
-    public Operation addOperation(OperationType type, Long summa , Long userId){
+    public  Operation addOperation(OperationType type, Long summa , Long userId){
          Operation operation = new Operation();
          operation.setOperationType(type);
          operation.setSumma(summa);
          operation.setId(userId);
-         return operationRepository.save(operation);
+         return operationRepository.saveAndFlush(operation);
     }
 }
