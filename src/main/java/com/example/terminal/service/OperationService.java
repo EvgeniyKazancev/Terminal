@@ -20,7 +20,7 @@ public class OperationService {
 
 
     public List<Operation> getOperationList(Long userId, ZonedDateTime startDate, ZonedDateTime finishDate) {
-        List<Operation> operationList = operationRepository.findOperationByDateBetween(userId, startDate, finishDate);
+        List<Operation> operationList = operationRepository.findAllByIdAndDateBetween(userId, startDate, finishDate);
         if (operationList.isEmpty()){
             throw  new EntityNotFoundException("Данные в указанный период отсутствуют");
         }
