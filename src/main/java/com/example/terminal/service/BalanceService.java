@@ -1,6 +1,7 @@
 package com.example.terminal.service;
 
 import com.example.terminal.entity.Balance;
+import com.example.terminal.entity.Users;
 import com.example.terminal.repository.BalanceRepository;
 
 
@@ -42,6 +43,7 @@ public class BalanceService {
 
     @Transactional
     public ResponseMessage takeMoney(Long userId, Long summa) {
+
         Balance bal = getBalance(userId);
         if (bal.getBalance() < summa) {
             ResponseMessage rm = new ResponseMessage("Недостаточно средств.", ResponseResult.ERROR_OPERATION.getResult());

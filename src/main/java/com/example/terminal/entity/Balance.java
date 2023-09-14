@@ -3,6 +3,7 @@ package com.example.terminal.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 
 @Getter
 @Setter

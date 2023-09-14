@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class OperationController {
     }
 
     @GetMapping("/getList")
-    public List<Operation> getOperationList(@RequestParam Long userId, @RequestParam ZonedDateTime startDate , @RequestParam ZonedDateTime finishDate){
+    public List<Operation> getOperationList(@RequestParam Long userId, @RequestParam(required = false) LocalDate startDate , @RequestParam(required = false) LocalDate finishDate){
         return operationService.getOperationList(userId,startDate,finishDate);
     }
 }
