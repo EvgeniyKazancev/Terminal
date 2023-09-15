@@ -24,9 +24,11 @@ public class OperationService {
 
 
     public List<Operation> getOperationList(Long userId, LocalDate startDate, LocalDate finishDate) {
-
-        List<Operation> operationList = operationRepository.findAllByIdAndDateBetween(userId, startDate, finishDate);
-        if (operationList.isEmpty()) {
+        List<Operation> operationList = operationRepository.findAllByUserIdAndAndDateBetween(userId, startDate, finishDate);
+        if (startDate == null){
+         operationList = operationRepository.findAllByUserId(userId);
+        }else if
+        (operationList.isEmpty()) {
             throw new EntityNotFoundException("Данные в указанный период отсутствуют");
         }
         return operationList;

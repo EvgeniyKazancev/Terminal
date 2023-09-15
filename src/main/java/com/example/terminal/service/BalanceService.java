@@ -51,7 +51,7 @@ public class BalanceService {
         } else
             bal.setBalance(bal.getBalance() - summa);
         operationService.addOperation(TAKE_MONEY, summa, userId);
-        return new ResponseMessage("", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        return new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
 
     }
 

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface OperationRepository extends JpaRepository<Operation,Long> {
-   List<Operation>  findAllById (Long userId);
-   List<Operation>  findAllByIdAndDateBetween (Long userId, LocalDate startDate, LocalDate finishDate);
+   List<Operation>  findAllByUserId (Long userId);
+
+ // List<Operation> findByUserIdAAndDateBetween
+   List<Operation>  findAllByUserIdAndAndDateBetween (Long userId, LocalDate startDate, LocalDate finishDate);
 }
