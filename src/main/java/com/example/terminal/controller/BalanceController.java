@@ -30,6 +30,10 @@ public class BalanceController {
     public ResponseMessage takeMoney(@RequestParam Long userId, @RequestParam Long summa){
         return balanceService.takeMoney(userId,summa);
     }
+    @PutMapping("/transfer")
+    public  ResponseMessage transferMoney (@RequestParam Long senderId, @RequestParam Long recipientId,@RequestParam Long summa){
+        return balanceService.transferMoney(senderId,recipientId,summa);
+    }
 
 
 }

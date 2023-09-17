@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.example.terminal.enums.OperationType.PUT_MONEY;
-import static com.example.terminal.enums.OperationType.TAKE_MONEY;
+import static com.example.terminal.enums.OperationType.*;
 
 
 @Service
@@ -53,6 +52,20 @@ public class BalanceService {
         operationService.addOperation(TAKE_MONEY, summa, userId);
         return new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
 
+    }
+    public ResponseMessage transferMoney(Long senderId,Long recipientId, Long summa){
+        Balance balSender = getBalance(senderId);
+        Balance balRecipient = getBalance(recipientId);
+        if (balSender.getBalance() < summa) {
+            ResponseMessage rm = new ResponseMessage("Не достаточно средств", ResponseResult.ERROR_OPERATION.getResult());
+            return rm;
+        }else
+            balSender.setBalance(balSender.getBalance() - summa);
+            balRecipient.setBalance(balRecipient.getBalance() + summa);
+             operationService.addOperation(TRANSFER,summa,senderId);
+             operationService.addOperation(TRANSFER,summa,recipientId);
+
+            return new ResponseMessage("Деньги отправлены", ResponseResult.SUCCESSFUL_OPERATION.getResult());
     }
 
 }
