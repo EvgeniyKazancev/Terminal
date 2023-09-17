@@ -7,7 +7,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+
 
 
 @Getter
@@ -31,8 +31,6 @@ public class Operation {
     @Column(name = "summa")
     private Long summa;
 
-
-   // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
     private LocalDate date;
 

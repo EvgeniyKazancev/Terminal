@@ -12,6 +12,5 @@ import java.util.Optional;
 public interface OperationRepository extends JpaRepository<Operation,Long> {
    List<Operation>  findAllByUserId (Long userId);
 
- // List<Operation> findByUserIdAAndDateBetween
    List<Operation>  findAllByUserIdAndAndDateBetween (Long userId, LocalDate startDate, LocalDate finishDate);
 }
