@@ -56,8 +56,8 @@ public class BalanceService {
     public ResponseMessage transferMoney(Long senderId,Long recipientId, Long summa){
         Balance balSender = getBalance(senderId);
         Balance balRecipient = getBalance(recipientId);
-        if (balSender.getBalance() < summa) {
-            ResponseMessage rm = new ResponseMessage("Не достаточно средств", ResponseResult.ERROR_OPERATION.getResult());
+        if (balSender.getBalance() < summa || balSender == balRecipient) {
+            ResponseMessage rm = new ResponseMessage("Не достаточно средств или указан не верный получатель", ResponseResult.ERROR_OPERATION.getResult());
             return rm;
         }else
             balSender.setBalance(balSender.getBalance() - summa);
