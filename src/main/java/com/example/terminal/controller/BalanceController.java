@@ -1,6 +1,7 @@
 package com.example.terminal.controller;
 
 import com.example.terminal.entity.Balance;
+import com.example.terminal.entity.Transfer;
 import com.example.terminal.response.ResponseMessage;
 import com.example.terminal.service.BalanceService;
 
@@ -33,7 +34,7 @@ public class BalanceController {
         return balanceService.takeMoney(userId,summa);
     }
     @PutMapping("/transfer")
-    public  ResponseMessage transferMoney (@RequestParam Long senderId, @RequestParam Long recipientId,@RequestParam Long summa){
+    public ResponseMessage transferMoney (@RequestParam Long senderId, @RequestParam Long recipientId, @RequestParam Long summa){
         return balanceService.transferMoney(senderId,recipientId,summa);
     }
 

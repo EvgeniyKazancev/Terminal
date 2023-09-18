@@ -18,9 +18,9 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @PutMapping("/add")
-//    public Users addUser(@RequestParam String firstName,@RequestParam String lastName ){
-//        return userService.addUser(firstName,lastName);
+//    @PutMapping("/save")
+//    public Users saveUser(@RequestParam String firstName,@RequestParam String lastName ){
+//        return userService.saveUser();
 //    }
 
 }

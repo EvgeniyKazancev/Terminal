@@ -21,7 +21,7 @@ public class Transfer {
     private Operation senderOperation;
 
     @OneToOne(optional = false,orphanRemoval = true)
-    @JoinColumn(name = "recepient_operation_id",nullable = false)
+    @JoinColumn(name = "recipient_operation_id",nullable = false)
     private Operation recipientOperation;
 
 }

@@ -1,7 +1,7 @@
 package com.example.terminal.service;
 
 import com.example.terminal.entity.Balance;
-import com.example.terminal.entity.Users;
+
 import com.example.terminal.repository.BalanceRepository;
 
 
@@ -58,8 +58,21 @@ public class BalanceService {
     }
 
     @Transactional
-    public void transferMoney(Long senderId, Long recipientId, Long summa) {
-        Users sender = userService.
+    public ResponseMessage transferMoney(Long senderId, Long recipientId, Long summa) {
+
+        Balance sendBalance = getBalance(senderId);
+        if (sendBalance.getBalance() < summa){
+            ResponseMessage rm = new ResponseMessage("Недостаточно средств",ResponseResult.ERROR_OPERATION.getResult());
+            return rm;
+        }
+        sendBalance.setBalance(sendBalance.getBalance() - summa);
+
+        Balance recipientBalance = getBalance(recipientId);
+        recipientBalance.setBalance(recipientBalance.getBalance() + summa);
+         ResponseMessage rm =new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        transferService.addTransfer(operationService.addOperation(TRANSFER_SEND,summa,senderId),operationService.addOperation(TRANSFER_RECEIVING,summa,recipientId));
+
+        return rm;
     }
 
 }
