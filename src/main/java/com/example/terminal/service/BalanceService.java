@@ -19,11 +19,14 @@ import static com.example.terminal.enums.OperationType.*;
 public class BalanceService {
     private final BalanceRepository balanceRepository;
     private final OperationService operationService;
+    private final TransferService transferService;
+    private final UserService userService;
 
-
-    public BalanceService(BalanceRepository balanceRepository, @Lazy OperationService operationService) {
+    public BalanceService(BalanceRepository balanceRepository, @Lazy OperationService operationService, TransferService transferService, UserService userService) {
         this.balanceRepository = balanceRepository;
         this.operationService = operationService;
+        this.transferService = transferService;
+        this.userService = userService;
     }
 
     public Balance getBalance(Long userId) {
@@ -53,19 +56,10 @@ public class BalanceService {
         return new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
 
     }
-    public ResponseMessage transferMoney(Long senderId,Long recipientId, Long summa){
-        Balance balSender = getBalance(senderId);
-        Balance balRecipient = getBalance(recipientId);
-        if (balSender.getBalance() < summa || balSender == balRecipient) {
-            ResponseMessage rm = new ResponseMessage("Не достаточно средств или указан не верный получатель", ResponseResult.ERROR_OPERATION.getResult());
-            return rm;
-        }else
-            balSender.setBalance(balSender.getBalance() - summa);
-            balRecipient.setBalance(balRecipient.getBalance() + summa);
-             operationService.addOperation(TRANSFER,summa,senderId);
-             operationService.addOperation(TRANSFER,summa,recipientId);
 
-            return new ResponseMessage("Деньги отправлены", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+    @Transactional
+    public void transferMoney(Long senderId, Long recipientId, Long summa) {
+        Users sender = userService.
     }
 
 }

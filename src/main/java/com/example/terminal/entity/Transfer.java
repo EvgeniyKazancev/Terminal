@@ -16,5 +16,12 @@ public class Transfer {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @OneToOne(optional = false,orphanRemoval = true)
+    @JoinColumn(name = "sender_operation_id",nullable = false)
+    private Operation senderOperation;
+
+    @OneToOne(optional = false,orphanRemoval = true)
+    @JoinColumn(name = "recepient_operation_id",nullable = false)
+    private Operation recipientOperation;
 
 }

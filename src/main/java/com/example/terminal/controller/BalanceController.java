@@ -3,7 +3,7 @@ package com.example.terminal.controller;
 import com.example.terminal.entity.Balance;
 import com.example.terminal.response.ResponseMessage;
 import com.example.terminal.service.BalanceService;
-import com.example.terminal.service.OperationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class BalanceController {
     private final BalanceService balanceService;
 
+
     @Autowired
     public BalanceController(BalanceService balanceService){
       this.balanceService = balanceService;
+
 
     }
     @GetMapping("/get")
