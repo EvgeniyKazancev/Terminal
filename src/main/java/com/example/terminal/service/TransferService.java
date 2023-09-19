@@ -13,10 +13,10 @@ public class TransferService {
         this.transferRepository = transferRepository;
     }
 
-    public Transfer addTransfer(Operation spenderOperation, Operation recipientOperation){
+    public Transfer addTransfer(Operation spendUserId, Operation recipientUserId){
         Transfer transfer = new Transfer();
-        transfer.setSenderOperation(spenderOperation);
-        transfer.setRecipientOperation(recipientOperation);
+        transfer.setSenderOperation(spendUserId);
+        transfer.setRecipientOperation(recipientUserId);
         return transferRepository.save(transfer);
     }
 }
