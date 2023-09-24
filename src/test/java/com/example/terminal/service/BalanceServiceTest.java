@@ -2,48 +2,56 @@ package com.example.terminal.service;
 
 import com.example.terminal.entity.Balance;
 import com.example.terminal.repository.BalanceRepository;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
+
+@ExtendWith(MockitoExtension.class)
 class BalanceServiceTest {
-    private BalanceService balanceService;
-    @Mock
-    private BalanceRepository balanceRepository;
 
-//    @BeforeEach
-//    public void setup() {
-//        balanceService = new BalanceService(balanceRepository, Mockito.mock(OperationService.class), Mockito.mock(TransferService.class));
-//    }
-     @BeforeAll
-     public  static  void before(){
-         System.out.println("Start testing BalanceService.java");
-     }
+    @Mock
+    BalanceRepository balanceRepository;
+    @Mock
+    OperationService operationService;
+    @Mock
+    TransferService transferService;
+    @InjectMocks
+    private BalanceService balanceService;
+
+    BalanceServiceTest(BalanceRepository balanceRepository, OperationService operationService) {
+        this.balanceRepository = balanceRepository;
+        this.operationService = operationService;
+    }
+
     @Test
     public void testGetBalance() {
-         final Balance result = balanceService.getBalance(1L);
-        Assertions.assertEquals(1200,result);
+        Balance actual = getTestBalance();
+        System.out.println(actual);
+        when(balanceRepository.findByUserId(anyLong())).thenReturn(Optional.of(actual));
+        Balance expected = balanceService.getBalance(1L);
+        System.out.println(expected);
+        Assertions.assertEquals(actual, expected);
+
     }
 
-    @Test
-    void putMoney() {
-//        Long id = 1L;
-//        Long balance = 100L;
-//        Balance bal = new Balance();
-//        bal.setId(id);
-//        bal.setBalance(balance);
-//        Mockito.when(balanceRepository.findByUserId(id)).thenReturn(Optional.of(bal));
-//        ResponseMessage re = balanceService
+    private Balance getTestBalance() {
+        Balance balance = new Balance();
+        balance.setId(1L);
+        balance.setBalance(1000L);
+        return balance;
+
     }
 
-    @Test
-    void takeMoney() {
-    }
 
-    @Test
-    void transferMoney() {
-    }
 }

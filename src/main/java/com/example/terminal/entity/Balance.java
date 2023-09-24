@@ -22,4 +22,6 @@ public class Balance {
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+
 }
