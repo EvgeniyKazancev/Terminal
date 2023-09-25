@@ -6,11 +6,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OperationServiceTest {
 
-    @Test
-    void getOperationList() {
-    }
 
-    @Test
-    void addOperation() {
-    }
 }

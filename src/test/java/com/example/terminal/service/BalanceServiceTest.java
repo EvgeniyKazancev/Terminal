@@ -133,8 +133,6 @@ class BalanceServiceTest {
         ResponseMessage actual = balanceService.transferMoney(senderTest.getId(),recipientTest.getId(), summa);
         Assertions.assertEquals(expected.getMessage(),actual.getMessage());
         Assertions.assertEquals(1000L,senderTest.getBalance() );
-        System.out.println(actual.getMessage());
-        System.out.println(expected.getMessage());
-        System.out.println(senderTest.getBalance());
+
     }
 }
