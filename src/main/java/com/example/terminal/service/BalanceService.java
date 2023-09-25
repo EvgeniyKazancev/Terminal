@@ -59,7 +59,7 @@ public class BalanceService {
         } else
             bal.setBalance(bal.getBalance() - summa);
         operationService.addOperation(TAKE_MONEY, summa, userId);
-        return new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        return new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
 
     }
 
@@ -68,14 +68,14 @@ public class BalanceService {
 
         Balance sendBalance = getBalance(senderId);
         if (sendBalance.getBalance() < summa) {
-            ResponseMessage rm = new ResponseMessage("Недостаточно средств", ResponseResult.ERROR_OPERATION.getResult());
+            ResponseMessage rm = new ResponseMessage("Недостаточно средств.", ResponseResult.ERROR_OPERATION.getResult());
             return rm;
         }
         sendBalance.setBalance(sendBalance.getBalance() - summa);
 
         Balance recipientBalance = getBalance(recipientId);
         recipientBalance.setBalance(recipientBalance.getBalance() + summa);
-        ResponseMessage rm = new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         transferService.addTransfer(operationService.addOperation(TRANSFER_SEND, summa, senderId), operationService.addOperation(TRANSFER_RECEIVING, summa, recipientId));
 
         return rm;
