@@ -1,28 +1,17 @@
 package com.example.terminal.service;
 
-import com.example.terminal.entity.Balance;
-import com.example.terminal.enums.OperationType;
+ import com.example.terminal.entity.Balance;
 import com.example.terminal.enums.ResponseResult;
 import com.example.terminal.repository.BalanceRepository;
-
 import com.example.terminal.response.ResponseMessage;
-import jakarta.persistence.EntityNotFoundException;
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
-import net.minidev.json.annotate.JsonIgnore;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.Optional;
-
-
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
