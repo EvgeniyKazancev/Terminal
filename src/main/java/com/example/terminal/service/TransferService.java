@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TransferService {
-         private  final TransferRepository transferRepository;
+
+    private  final TransferRepository transferRepository;
 
     public TransferService(TransferRepository transferRepository) {
         this.transferRepository = transferRepository;

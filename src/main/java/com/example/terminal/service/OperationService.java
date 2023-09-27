@@ -20,11 +20,11 @@ import java.util.Optional;
 public class OperationService {
     private final OperationRepository operationRepository;
     private final UsersRepository usersRepository;
-    private final TransferRepository transferRepository;
-    public OperationService(OperationRepository operationRepository, UsersRepository usersRepository,@Lazy TransferRepository transferRepository) {
+
+    public OperationService(OperationRepository operationRepository, UsersRepository usersRepository) {
         this.operationRepository = operationRepository;
         this.usersRepository = usersRepository;
-        this.transferRepository = transferRepository;
+
     }
 
 
