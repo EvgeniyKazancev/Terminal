@@ -18,6 +18,10 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    @PutMapping("/addUser")
+    public  Users saveUser(@RequestParam String firstname,@RequestParam String lastname){
+        return userService.saveUser(firstname,lastname);
+    }
 
 
 }
