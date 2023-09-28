@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OperationServiceTest {
+
     @Mock
     OperationRepository operationRepository;
     @Mock
@@ -71,5 +72,6 @@ class OperationServiceTest {
 
         Operation actualOperation = operationService.addOperation(OperationType.PUT_MONEY,summa,id);
         assertEquals(expectedOperation,actualOperation);
+
     }
 }
