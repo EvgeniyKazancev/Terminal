@@ -55,7 +55,7 @@ class OperationControllerTest {
                 "            \"lastName\": \"Kazancev\",\n" +
                 "            \"id\": 1\n" +
                 "        },\n" +
-                "        \"operationType\": \"TRANSFER_RECEIVING\",\n" +
+                "        \"operationType\": \"PUT_MONEY\",\n" +
                 "        \"summa\": 100,\n" +
                 "        \"date\": \"2023-09-29\"}";
 
