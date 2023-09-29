@@ -27,7 +27,7 @@ public class UserService {
     }
 
 
-    public Users saveUser(String firstName, String lastName) {
+    public Users addUser(String firstName, String lastName) {
 
         entityManager.getTransaction().begin();
         Users user = new Users();
@@ -36,8 +36,9 @@ public class UserService {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         entityManager.persist(user);
+        entityManager.persist(balance);
         entityManager.getTransaction().commit();
-
+        entityManager.close();
         return user;
     }
 
