@@ -59,7 +59,7 @@ class OperationControllerTest {
                 "        \"summa\": 100,\n" +
                 "        \"date\": \"2023-09-29\"}";
 
-        this.mvc.perform(get("/operation/getList").param(String.valueOf(userId)).param(String.valueOf(startDate)).param(String.valueOf(finishDate)))
+        this.mvc.perform(get("/operation/getList").param("userId", String.valueOf(userId)).param("startDate",String.valueOf(startDate)).param("finishDate",String.valueOf(finishDate)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));

@@ -42,7 +42,7 @@ class BalanceControllerTest {
         when(balanceService.getBalance(userId)).thenReturn(balance);
 
         String expected = "{\"balance\": 100,\"user\":{\"firstName\":\"Ivan\",\"lastName\":\"Kazancev\",\"id\":1},\"id\":1}";
-        this.mockMvc.perform(get("/balance/get").param(String.valueOf(userId)))
+        this.mockMvc.perform(get("/balance/get").param("userId",String.valueOf(userId)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
@@ -57,7 +57,7 @@ class BalanceControllerTest {
         when(balanceService.putMoney(userId,summa)).thenReturn(rm);
 
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/put").param(String.valueOf(userId)).param(String.valueOf(summa)))
+        this.mockMvc.perform(put("/balance/put").param("userId",String.valueOf(userId)).param("summa",String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
@@ -73,7 +73,7 @@ class BalanceControllerTest {
         when(balanceService.takeMoney(userId,summa)).thenReturn(rm);
 
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/take").param(String.valueOf(userId)).param(String.valueOf(summa)))
+        this.mockMvc.perform(put("/balance/take").param("userId",String.valueOf(userId)).param("summa",String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
@@ -88,7 +88,7 @@ class BalanceControllerTest {
         when(balanceService.transferMoney(senderUserId,recipientUserId,summa)).thenReturn(rm);
 
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/transfer").param(String.valueOf(senderUserId)).param(String.valueOf(recipientUserId)).param(String.valueOf(summa)))
+        this.mockMvc.perform(put("/balance/transfer").param("senderUserId",String.valueOf(senderUserId)).param("recipientUserId",String.valueOf(recipientUserId)).param("summa",String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
