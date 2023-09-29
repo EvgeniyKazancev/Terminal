@@ -75,8 +75,9 @@ public class BalanceService {
 
         Balance recipientBalance = getBalance(recipientId);
         recipientBalance.setBalance(recipientBalance.getBalance() + summa);
-        ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         transferService.addTransfer(operationService.addOperation(TRANSFER_SEND, summa, senderId), operationService.addOperation(TRANSFER_RECEIVING, summa, recipientId));
+        ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+
 
         return rm;
     }
