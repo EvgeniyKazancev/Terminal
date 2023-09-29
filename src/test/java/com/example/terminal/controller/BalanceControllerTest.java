@@ -8,10 +8,12 @@ import com.example.terminal.service.BalanceService;
 
 import org.junit.jupiter.api.Test;
 
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -71,7 +73,7 @@ class BalanceControllerTest {
         when(balanceService.takeMoney(userId,summa)).thenReturn(rm);
 
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/put").param(String.valueOf(userId)).param(String.valueOf(summa)))
+        this.mockMvc.perform(put("/balance/take").param(String.valueOf(userId)).param(String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
@@ -86,7 +88,7 @@ class BalanceControllerTest {
         when(balanceService.transferMoney(senderUserId,recipientUserId,summa)).thenReturn(rm);
 
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/put").param(String.valueOf(senderUserId)).param(String.valueOf(recipientUserId)).param(String.valueOf(summa)))
+        this.mockMvc.perform(put("/balance/transfer").param(String.valueOf(senderUserId)).param(String.valueOf(recipientUserId)).param(String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected));
