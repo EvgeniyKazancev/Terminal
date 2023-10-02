@@ -19,9 +19,11 @@ public class UserController {
         this.userService = userService;
     }
     @PutMapping("/addUser")
-    public  Users newUser(@RequestParam String firstname,@RequestParam String lastname){
-        return userService.addUser(firstname,lastname);
+    public  Users newUser(@RequestParam String firstName,@RequestParam String lastName){
+        return userService.addUser(firstName,lastName);
     }
+   // @PutMapping(/)
+
 
 
 }
