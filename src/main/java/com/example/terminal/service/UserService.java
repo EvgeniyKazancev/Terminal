@@ -2,20 +2,19 @@ package com.example.terminal.service;
 
 import com.example.terminal.entity.Balance;
 import com.example.terminal.entity.Users;
+import com.example.terminal.enums.ResponseResult;
 import com.example.terminal.repository.BalanceRepository;
 import com.example.terminal.repository.UsersRepository;
+import com.example.terminal.response.ResponseMessage;
 import jakarta.persistence.*;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     private final BalanceRepository balanceRepository;
     private final UsersRepository usersRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    // EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.baeldung.movie_catalog");
 
     public UserService(BalanceRepository balanceRepository, UsersRepository usersRepository) {
         this.balanceRepository = balanceRepository;
@@ -29,7 +28,7 @@ public class UserService {
     }
 
 
-    public Users addUser(String firstName, String lastName) {
+    public ResponseMessage addUser(String firstName, String lastName) {
         Users user = new Users();
         Balance balance = new Balance();
         balance.setBalance(0L);
@@ -39,12 +38,13 @@ public class UserService {
         usersRepository.save(user);
         balance.setUser(user);
         balanceRepository.save(balance);
-        return user;
+        return new ResponseMessage("Новый пользователь добавлен", ResponseResult.SUCCESSFUL_OPERATION.getResult());
     }
 
-    public void deleteUser(Long userId) {
+    public ResponseMessage deleteUser(Long userId) {
         usersRepository.deleteById(userId);
         balanceRepository.deleteBalanceByUserId(userId);
+        return new ResponseMessage("Пользователь удален", ResponseResult.SUCCESSFUL_OPERATION.getResult());
     }
 
     public Users updateUser(Long userId, String firstname, String lastname) {

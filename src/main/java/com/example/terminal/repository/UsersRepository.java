@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface UsersRepository extends JpaRepository<Users,Long> {
 
-
+void deleteUsersById (Long userId);
 }

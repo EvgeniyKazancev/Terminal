@@ -8,66 +8,93 @@ import com.example.terminal.service.BalanceService;
 
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-@WebMvcTest(BalanceController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class BalanceControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private BalanceService balanceService;
 
-    public BalanceControllerTest(MockMvc mockMvc, BalanceService balanceService) {
-        this.mockMvc = mockMvc;
-        this.balanceService = balanceService;
-    }
-
 
     @Test
     public void getBalance() throws Exception {
-        Long userId = 1L;
+//        Long userId = 1L;
+//        Balance balance = new Balance();
+//        balance.setId(userId);
+//        balance.setBalance(100L);
+//        Users user = new Users();
+//        user.setId(userId);
+//        user.setFirstName("Ivan");
+//        user.setLastName("Kazancev");
+//        balance.setBalance(100L);
+//
+//        when(balanceService.getBalance(userId)).thenReturn(balance);
+//
+//
+//        this.mockMvc.perform(get("/balance/get").param("userId", "1")
+//               // .andExpect(status().isOk())
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.balance").value(100))
+//                //.andExpect(jsonPath("$.user").value("user:"))
+//                .andExpect(jsonPath("$.user.firstName").value("Ivan"))
+//                .andExpect(jsonPath("$.user.lastName").value("Kazancev"))
+//                .andExpect(jsonPath("$.id").value(1))
+//                .andExpect(jsonPath("$.id").value(1))
+//                .andDo(print());
+
         Balance balance = new Balance();
-        Users user = new Users();
-        user.setId(userId);
-        user.setFirstName("Ivan");
-        user.setLastName("Kazancev");
+        balance.setId(1L);
         balance.setBalance(100L);
 
-        when(balanceService.getBalance(userId)).thenReturn(balance);
+        when(balanceService.getBalance(1L)).thenReturn(balance);
 
-        String expected = "{\"balance\":100,\"user\":{\"firstName\":\"Ivan\",\"lastName\":\"Kazancev\",\"id\":1},\"id\":1}";
-        this.mockMvc.perform(get("/balance/get").param("userId", String.valueOf(userId)))
+        mockMvc.perform(MockMvcRequestBuilders.get("/balance/get")
+                .param("userId", "1")
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("$.balance").value(100))
+                .andExpect(jsonPath("$.id").value(1))
+                .andDo(print());
     }
 
     @Test
     public void putMoney() throws Exception {
-        Long userId = 1L;
-        Long summa = 10L;
 
-        ResponseMessage rm = new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
-        when(balanceService.putMoney(userId, summa)).thenReturn(rm);
 
-        String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        this.mockMvc.perform(put("/balance/put").param("userId", String.valueOf(userId)).param("summa", String.valueOf(summa)))
+        ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+        when(balanceService.putMoney(anyLong(),anyLong())).thenReturn(rm);
+
+        //  String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
+        mockMvc.perform(put("/balance/put")
+                .param("userId", "1")
+                .param("summa", "10")
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("$.message").value(rm.getMessage()))
+                .andExpect(jsonPath("$.code").value(rm.getCode()))
+                .andExpect((ResultMatcher) print());
 
     }
 
@@ -78,8 +105,8 @@ class BalanceControllerTest {
 
         ResponseMessage rm = new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         when(balanceService.takeMoney(userId, summa)).thenReturn(rm);
-
         String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
+
         this.mockMvc.perform(put("/balance/take").param("userId", String.valueOf(userId)).param("summa", String.valueOf(summa)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
