@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final BalanceService balanceService;
+
     @Autowired
-    public UserController(UserService userService, BalanceService balanceService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.balanceService = balanceService;
+
     }
     @PutMapping("/addUser")
     public  ResponseMessage newUser(@RequestParam String firstName,@RequestParam String lastName){
