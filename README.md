@@ -24,6 +24,9 @@ PUT /balance/put - пополнение баланса пользователя.
 PUT /balance/take - снятие заданной суммы с баланса пользователя.
 GET /operation/getList - получение списка операций для заднного пользователя в заданный промежуток времени.
 PUT /balance/transfer - перевод денежныхпо указанным параметрам.
+PUT /user/addUser - добавление пользователя
+PUT /user/deletUser - удаление пользователя
+PUT /user/updateUser - изменение данных пользователя
 ```
 ___
 <img src="img.png" height="50" width="50" /> 
