@@ -1,7 +1,6 @@
 package com.example.terminal.controller;
 
 
-import com.example.terminal.entity.Users;
 import com.example.terminal.response.ResponseMessage;
 import com.example.terminal.service.BalanceService;
 import com.example.terminal.service.UserService;
@@ -29,6 +28,10 @@ public class UserController {
     public ResponseMessage deleteUser(@RequestParam Long userId){
        return   userService.deleteUser(userId);
 
+    }
+    @PutMapping("/updateUser")
+    public ResponseMessage updateUser(@RequestParam Long userId, @RequestParam String firstName, @RequestParam String lastName ){
+        return userService.updateUser(userId,firstName,lastName);
     }
 
 

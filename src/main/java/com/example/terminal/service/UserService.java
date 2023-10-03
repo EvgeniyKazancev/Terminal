@@ -47,12 +47,12 @@ public class UserService {
         return new ResponseMessage("Пользователь удален", ResponseResult.SUCCESSFUL_OPERATION.getResult());
     }
 
-    public Users updateUser(Long userId, String firstname, String lastname) {
+    public ResponseMessage updateUser(Long userId, String firstname, String lastname) {
         Users user = findUser(userId);
         user.setFirstName(firstname);
         user.setLastName(lastname);
         usersRepository.save(user);
-        return user;
+        return new ResponseMessage("Пользователь изменен",ResponseResult.SUCCESSFUL_OPERATION.getResult() );
     }
 
 
