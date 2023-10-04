@@ -87,7 +87,7 @@ class BalanceControllerTest {
         when(balanceService.putMoney(anyLong(),anyLong())).thenReturn(rm);
 
         //  String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
-        mockMvc.perform(put("/balance/put")
+        this.mockMvc.perform(put("/balance/put")
                 .param("userId", "1")
                 .param("summa", "10")
                 .accept(MediaType.APPLICATION_JSON))
