@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,9 +79,25 @@ class UserServiceTest {
 
     @Test
     public void deleteUser() {
+        Users user = getTestUser();
+        user.setId(1L);
+        Balance balance = new Balance();
+        balance.setBalance(0L);
+        balance.setUser(user);
+
+       doNothing().when(usersRepository).deleteById(user.getId());
+       doNothing().when(balanceRepository).deleteBalanceByUserId(user.getId());
+
+        ResponseMessage expected = new ResponseMessage("Пользователь удален", ResponseResult.SUCCESSFUL_OPERATION.getResult());
+
+        ResponseMessage actual = userService.deleteUser(user.getId());
+
+        assertEquals(expected.getMessage(), actual.getMessage());
+        assertEquals(expected.getCode(), actual.getCode());
     }
 
     @Test
     public void updateUser() {
+
     }
 }

@@ -81,20 +81,21 @@ class BalanceControllerTest {
 
     @Test
     public void putMoney() throws Exception {
-
+     Long userId = 1L;
+     Long summa = 100L;
 
         ResponseMessage rm = new ResponseMessage("Операция прошла успешно.", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         when(balanceService.putMoney(anyLong(),anyLong())).thenReturn(rm);
 
-        //  String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
+
         this.mockMvc.perform(put("/balance/put")
-                .param("userId", "1")
-                .param("summa", "10")
+                .param("userId", String.valueOf(userId))
+                .param("summa", String.valueOf(summa))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value(rm.getMessage()))
                 .andExpect(jsonPath("$.code").value(rm.getCode()))
-                .andExpect((ResultMatcher) print());
+                .andDo(print());
 
     }
 
@@ -105,12 +106,15 @@ class BalanceControllerTest {
 
         ResponseMessage rm = new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         when(balanceService.takeMoney(userId, summa)).thenReturn(rm);
-        String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
+
 
         this.mockMvc.perform(put("/balance/take").param("userId", String.valueOf(userId)).param("summa", String.valueOf(summa)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("$.message").value(rm.getMessage()))
+                .andExpect(jsonPath("$.code").value(rm.getCode()))
+                .andDo(print());
+
+
     }
 
     @Test
@@ -122,11 +126,12 @@ class BalanceControllerTest {
         ResponseMessage rm = new ResponseMessage("Операция прошла успешно", ResponseResult.SUCCESSFUL_OPERATION.getResult());
         when(balanceService.transferMoney(senderUserId, recipientUserId, summa)).thenReturn(rm);
 
-        String expected = "{\"message\":\"Операция прошла успешно.\",\"code\":1}";
+
         this.mockMvc.perform(put("/balance/transfer").param("senderUserId", String.valueOf(senderUserId)).param("recipientUserId", String.valueOf(recipientUserId)).param("summa", String.valueOf(summa)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(expected));
+                .andExpect(jsonPath("$.message").value(rm.getMessage()))
+                .andExpect(jsonPath("$.code").value(rm.getCode()))
+                .andDo(print());
     }
 }
 
