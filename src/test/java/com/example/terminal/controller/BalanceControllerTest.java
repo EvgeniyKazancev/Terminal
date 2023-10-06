@@ -3,6 +3,7 @@ package com.example.terminal.controller;
 import com.example.terminal.entity.Balance;
 import com.example.terminal.entity.Users;
 import com.example.terminal.enums.ResponseResult;
+import com.example.terminal.repository.UsersRepository;
 import com.example.terminal.response.ResponseMessage;
 import com.example.terminal.service.BalanceService;
 
@@ -20,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -35,18 +38,22 @@ class BalanceControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private BalanceService balanceService;
-
+    @MockBean
+    private UsersRepository usersRepository;
 
     @Test
     public void getBalance() throws Exception {
-//        Long userId = 1L;
+      Long userId = 1L;
 //        Balance balance = new Balance();
 //        balance.setId(userId);
 //        balance.setBalance(100L);
-//        Users user = new Users();
-//        user.setId(userId);
-//        user.setFirstName("Ivan");
-//        user.setLastName("Kazancev");
+        String firstName = "Ivan";
+        String lastName = "Ivanov";
+        Users user = new Users();
+        user.setId(userId);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
 //        balance.setBalance(100L);
 //
 //        when(balanceService.getBalance(userId)).thenReturn(balance);
@@ -66,15 +73,16 @@ class BalanceControllerTest {
 
         Balance balance = new Balance();
         balance.setId(1L);
+        balance.setUser(user);
         balance.setBalance(100L);
 
         when(balanceService.getBalance(1L)).thenReturn(balance);
-
+        when(usersRepository.findById(1L)).thenReturn(Optional.of(user));
         mockMvc.perform(MockMvcRequestBuilders.get("/balance/get")
-                .param("userId", "1")
-                .accept(MediaType.APPLICATION_JSON))
+                .param("userId", String.valueOf(userId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.balance").value(100))
+                .andExpect(jsonPath("$.user").value(balance.getUser()))
                 .andExpect(jsonPath("$.id").value(1))
                 .andDo(print());
     }
