@@ -74,7 +74,7 @@ class UserServiceTest {
         ResponseMessage response = userService.addUser(firstName, lastName);
 
         assertEquals("Новый пользователь добавлен", response.getMessage());
-        assertEquals(1,response.getCode());
+        assertEquals(1, response.getCode());
     }
 
     @Test
@@ -85,8 +85,8 @@ class UserServiceTest {
         balance.setBalance(0L);
         balance.setUser(user);
 
-       doNothing().when(usersRepository).deleteById(user.getId());
-       doNothing().when(balanceRepository).deleteBalanceByUserId(user.getId());
+        doNothing().when(usersRepository).deleteById(user.getId());
+        doNothing().when(balanceRepository).deleteBalanceByUserId(user.getId());
 
         ResponseMessage expected = new ResponseMessage("Пользователь удален", ResponseResult.SUCCESSFUL_OPERATION.getResult());
 
@@ -98,6 +98,20 @@ class UserServiceTest {
 
     @Test
     public void updateUser() {
+        Long userId = 1L;
+        String firstName = "Ivan";
+        String lastName = "Ivanov";
 
+        Users user = new Users();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setId(userId);
+        when(usersRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(usersRepository.save(user)).thenReturn(user);
+
+
+        ResponseMessage actual = userService.updateUser(user.getId(), "Aleksey", "Chernov");
+        assertEquals("Пользователь изменен", actual.getMessage());
+        assertEquals(ResponseResult.SUCCESSFUL_OPERATION.getResult(), actual.getCode());
     }
 }
