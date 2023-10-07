@@ -36,7 +36,7 @@ public class UserService {
         user.setLastName(lastName);
 
         usersRepository.save(user);
-        balance.setUser(user);
+
         balanceRepository.save(balance);
         return new ResponseMessage("Новый пользователь добавлен", ResponseResult.SUCCESSFUL_OPERATION.getResult());
     }

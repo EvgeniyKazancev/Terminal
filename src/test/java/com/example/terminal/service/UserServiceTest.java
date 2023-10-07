@@ -66,7 +66,7 @@ class UserServiceTest {
 
         Balance balance = new Balance();
         balance.setBalance(0L);
-        balance.setUser(user);
+
 
         when(usersRepository.save(any(Users.class))).thenReturn(user);
         when(balanceRepository.save(any(Balance.class))).thenReturn(balance);
@@ -83,7 +83,7 @@ class UserServiceTest {
         user.setId(1L);
         Balance balance = new Balance();
         balance.setBalance(0L);
-        balance.setUser(user);
+
 
         doNothing().when(usersRepository).deleteById(user.getId());
         doNothing().when(balanceRepository).deleteBalanceByUserId(user.getId());
