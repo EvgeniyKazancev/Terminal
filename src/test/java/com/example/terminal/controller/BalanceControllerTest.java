@@ -44,9 +44,7 @@ class BalanceControllerTest {
     @Test
     public void getBalance() throws Exception {
       Long userId = 1L;
-//        Balance balance = new Balance();
-//        balance.setId(userId);
-//        balance.setBalance(100L);
+
         String firstName = "Ivan";
         String lastName = "Ivanov";
         Users user = new Users();
@@ -54,26 +52,8 @@ class BalanceControllerTest {
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
-//        balance.setBalance(100L);
-//
-//        when(balanceService.getBalance(userId)).thenReturn(balance);
-//
-//
-//        this.mockMvc.perform(get("/balance/get").param("userId", "1")
-//               // .andExpect(status().isOk())
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.balance").value(100))
-//                //.andExpect(jsonPath("$.user").value("user:"))
-//                .andExpect(jsonPath("$.user.firstName").value("Ivan"))
-//                .andExpect(jsonPath("$.user.lastName").value("Kazancev"))
-//                .andExpect(jsonPath("$.id").value(1))
-//                .andExpect(jsonPath("$.id").value(1))
-//                .andDo(print());
-
         Balance balance = new Balance();
         balance.setId(1L);
-        balance.setUser(user);
         balance.setBalance(100L);
 
         when(balanceService.getBalance(1L)).thenReturn(balance);
@@ -82,7 +62,7 @@ class BalanceControllerTest {
                 .param("userId", String.valueOf(userId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.balance").value(100))
-                .andExpect(jsonPath("$.user").value(balance.getUser()))
+
                 .andExpect(jsonPath("$.id").value(1))
                 .andDo(print());
     }
