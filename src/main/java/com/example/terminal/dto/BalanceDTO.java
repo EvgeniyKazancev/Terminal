@@ -1,5 +1,7 @@
 package com.example.terminal.dto;
 
+
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +13,6 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 public class BalanceDTO implements Serializable {
-
     private Long balance;
 
 }

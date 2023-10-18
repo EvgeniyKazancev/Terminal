@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -22,6 +21,7 @@ public class OperationController {
     }
 
     @GetMapping("/getList")
+   @io.swagger.v3.oas.annotations.Operation(description = "Получение списка опреаций за заданный промежуток времени по Id")
     public List<Operation> getOperationList(@RequestParam Long userId, @RequestParam(required = false) LocalDate startDate , @RequestParam(required = false) LocalDate finishDate){
         return operationService.getOperationList(userId,startDate,finishDate);
     }
